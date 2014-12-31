@@ -4,195 +4,240 @@
 }
 
 body {
-	padding-top: 50px;
+    padding-top: 50px;
 }
 .main {
-	padding: 20px 15px;
-	text-align: center;
+    padding: 20px 15px;
+    text-align: center;
 }
 .lead {
-	margin-top: 30px;
+    margin-top: 30px;
 }
 
 nav li {
-	cursor: pointer;
+    cursor: pointer;
 }
 
 h1 {
-	font-size: 3rem;
+    font-size: 3rem;
 }
 
 .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
-	background-color: #f0f0f0;
+    background-color: #f0f0f0;
 }
 
 .symbols-line {
-	margin-bottom: 5px;
+    margin-bottom: 5px;
 }
 .symbol-hidden {
-	visibility: hidden;
+    visibility: hidden;
 }
 .symbols-line .symbol:last-child {
-	margin-right: auto;
+    margin-right: auto;
 }
 .symbol {
-	margin-right: 5px;
+    margin-right: 5px;
 }
 .symbol-japan {
-	font-family: "ipaexg";
+    font-family: "helvetica", "sans-serif", "verdana";/*, "ipaexg";*/
 }
-
-
+.symbols-pack {
+    margin-bottom: 2em;
+}
 
 
 
 /* Large desktop */
 @media (min-width: 1200px) {
-	
-	html {
-		font-size: 16px;
-	}
-	.hidden-desktop {
-		display: none;
-	}
-	.visible-desktop {
-		display: block;
-	}
+    
+    html {
+        font-size: 16px;
+    }
+    .hidden-desktop {
+        display: none;
+    }
+    .visible-desktop {
+        display: block;
+    }
 
 
-	.symbol {
-	    width: 6rem;
-	    line-height: 2.5rem;
-	}
-	.symbol-japan {
-		font-size: 3rem;
-	}
-	.symbol-romaji {
-		font-size: 1.5rem;
-	}
+    .symbol {
+        width: 5rem;
+        line-height: 2.2rem;
+    }
+    .symbol-japan {
+        font-size: 2.5rem;
+    }
+    .symbol-romaji {
+        font-size: 1.3rem;
+    }
+    .symbols-digraphs .symbol {
+        width: 5.5rem;
+    }
+    .symbols-digraphs .symbol-japan {
+        font-size: 2rem;
+    }
+
 }
 
 @media (min-width: 980px) and (max-width: 1199px) {
-	
-	html {
-		font-size: 14px;
-	}
-	.hidden-desktop {
-		display: none;
-	}
-	.visible-desktop {
-		display: block;
-	}
+    
+    html {
+        font-size: 14px;
+    }
+    .hidden-desktop {
+        display: none;
+    }
+    .visible-desktop {
+        display: block;
+    }
 
-	.symbol {
-	    width: 4.1rem;
-	    line-height: 2.2rem;
-	}
-	.symbol-japan {
-		font-size: 2.5rem;
-	}
-	.symbol-romaji {
-		font-size: 1.4rem;
-	}
+    .symbol {
+        width: 4.1rem;
+        line-height: 2.2rem;
+    }
+    .symbol-japan {
+        font-size: 2.3rem;
+    }
+    .symbol-romaji {
+        font-size: 1.3rem;
+    }
+    .symbols-digraphs .symbol {
+        width: 5.5rem;
+    }
+    .symbols-digraphs .symbol-japan {
+        font-size: 1.9rem;
+    }
 }
- 
+
 /* Portrait tablet to landscape and desktop */
 @media (min-width: 768px) and (max-width: 979px) {
 
-	html {
-		font-size: 12px;
-	}
-	.hidden-desktop {
-		display: block;
-	}
-	.visible-desktop {
-		display: none;
-	}
+    html {
+        font-size: 12px;
+    }
+    .hidden-desktop {
+        display: block;
+    }
+    .visible-desktop {
+        display: none;
+    }
 
-	.symbol {
-	    width: 8rem;
-	    line-height: 3rem;
-	}
-	.symbol-japan {
-		font-size: 3.5rem;
-	}
-	.symbol-romaji {
-		font-size: 2rem;
-	}
+    .symbol {
+        width: 8rem;
+        line-height: 3rem;
+    }
+    .symbol-japan {
+        font-size: 3.5rem;
+    }
+    .symbol-romaji {
+        font-size: 2rem;
+    }
+    .symbols-digraphs .symbol {
+        width: 8.2rem;
+    }
+    .symbols-digraphs .symbol-japan {
+        font-size: 3rem;
+    }
 }
  
 /* Landscape phone to portrait tablet */
-@media (max-width: 767px) {
+@media (min-width: 481px) and (max-width: 767px) {
 
-	html {
-		font-size: 10px;
-	}
-	.hidden-desktop {
-		display: block;
-	}
-	.visible-desktop {
-		display: none;
-	}
+    html {
+        font-size: 10px;
+    }
+    .hidden-desktop {
+        display: block;
+    }
+    .visible-desktop {
+        display: none;
+    }
 
-	.symbol {
-	    width: 7.7rem;
-	    line-height: 3rem;
-	}
-	.symbol-japan {
-		font-size: 3.5rem;
-	}
-	.symbol-romaji {
-		font-size: 2rem;
-	}
+    .symbol {
+        width: 7.7rem;
+        line-height: 3rem;
+    }
+    .symbol-japan {
+        font-size: 3.5rem;
+    }
+    .symbol-romaji {
+        font-size: 2rem;
+    }
+    .symbols-digraphs .symbol {
+        width: 8rem;
+    }
+    .symbols-digraphs .symbol-japan {
+        font-size: 2.9rem;
+    }
 }
 
 /* Landscape phones and down */
-@media (max-width: 480px) { 
+@media (min-width: 321px) and (max-width: 480px) { 
 
-	html {
-		font-size: 8px;
-	}
-	.hidden-desktop {
-		display: block;
-	}
-	.visible-desktop {
-		display: none;
-	}
+    html {
+        font-size: 8px;
+    }
+    .main {
+        min-width: 435px;
+    }
+    .hidden-desktop {
+        display: block;
+    }
+    .visible-desktop {
+        display: none;
+    }
 
-	.symbol {
-	    width: 8rem;
-	    line-height: 3rem;
-	}
-	.symbol-japan {
-		font-size: 3.5rem;
-	}
-	.symbol-romaji {
-		font-size: 2rem;
-	}
+    .symbol {
+        width: 8rem;
+        line-height: 3rem;
+    }
+    .symbol-japan {
+        font-size: 3.5rem;
+    }
+    .symbol-romaji {
+        font-size: 2rem;
+    }
+    .symbols-digraphs .symbol {
+        width: 9.3rem;
+    }
+    .symbols-digraphs .symbol-japan {
+        font-size: 2.9rem;
+    }
 }
 
+/* Portrait phones */
 @media (max-width: 320px) {
 
-	html {
-		font-size: 6px;
-	}
-	.hidden-desktop {
-		display: block;
-	}
-	.visible-desktop {
-		display: none;
-	}
+    html {
+        font-size: 6px;
+    }
+    .main {
+        min-width: 275px;
+    }
+    .hidden-desktop {
+        display: block;
+    }
+    .visible-desktop {
+        display: none;
+    }
 
-	.symbol {
-	    width: 8rem;
-	    line-height: 3rem;
-	}
-	.symbol-japan {
-		font-size: 3.5rem;
-	}
-	.symbol-romaji {
-		font-size: 2rem;
-	}
+    .symbol {
+        width: 7.5rem;
+        line-height: 3rem;
+    }
+    .symbol-japan {
+        font-size: 3.5rem;
+    }
+    .symbol-romaji {
+        font-size: 2.2rem;
+    }
+    .symbols-digraphs .symbol {
+        width: 9.8rem;
+    }
+    .symbols-digraphs .symbol-japan {
+        font-size: 2.8rem;
+    }
 }
 
 

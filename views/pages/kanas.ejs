@@ -1,16 +1,17 @@
 <!doctype html>
 <html lang="fr">
-	<head>
-		<% include ../partials/head %>
-	</head>
-	<body ng-app="kakikata_kana">
+    <head>
+        <% include ../partials/head %>
+    </head>
+    <body ng-app="kakikata_kana">
 
-		<% include ../partials/menu %>
-		
-		<ui-view></ui-view>
+        <% include ../partials/menu %>
+        
+        <ui-view></ui-view>
 
-		<% include ../partials/bootstrap %>
-		<% include ../partials/angular %>
-		<script src="/angularApp/app-kana.js"></script>
-	</body>
+        <% include ../partials/bootstrap %>
+        <% include ../partials/angular %>
+        <script src="/angularApp/libs/kanas.js"></script>
+        <script src="/angularApp/app-kana.js"></script>
+    </body>
 </html>
