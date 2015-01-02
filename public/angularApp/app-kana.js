@@ -88,6 +88,22 @@ app.factory('kanaUtils', function() {
         return false;
     };
 
+    service.stringAsUnicode = function(input) {
+        var pad_four = function(input) {
+            var l = input.length;
+            if (l == 0) return '0000';
+            if (l == 1) return '000' + input;
+            if (l == 2) return '00' + input;
+            if (l == 3) return '0' + input;
+            return input;
+        }
+        var output = [];
+        for (var i = 0, l = input.length; i < l; i++)
+            //output += '\\u' + pad_four(input.charCodeAt(i).toString(16));
+            output.push( parseInt( (input.charCodeAt(i) + 0x10000).toString(16).slice(1) ) );
+        return output;
+    };
+
     return service;
 })
 
@@ -202,6 +218,21 @@ app.controller('KanasCtrl', ['$scope', '$stateParams', 'kanaUtils', '$window',
     }
 
     $scope.kana = $sP.kana;
+    $scope.kanaUnicode = utils.stringAsUnicode($scope.kana);    
+    
+    var s = Snap("#svg_kana");
+
+    Snap.load("/angularApp/libs/kanji/05927.svg", function (f) {
+
+        var g = f.select("g[id='kvg:StrokePaths_05927']");
+        s.append(g);
+
+        var kanaAnim = new Vivus('svg_kana', {type:'oneByOne', duration: 350, forceRender: true}, function(){
+            // animation finie
+        });
+        console.log(kanaAnim);
+    });
+
 }]);
 
 })();
