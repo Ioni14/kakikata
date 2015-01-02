@@ -231,8 +231,8 @@ var KATAKANAS_DIACRITICS = [
     {jp:'ゾ', roma:'zo'}],
 
     [{jp:'ダ', roma:'da'},
-    {jp:'ジ', roma:'ji'},
-    {jp:'ズ', roma:'zu'},
+    {jp:'ヂ', roma:'(ji)'},
+    {jp:'ヅ', roma:'(zu)'},
     {jp:'デ', roma:'de'},
     {jp:'ド', roma:'do'}],
     

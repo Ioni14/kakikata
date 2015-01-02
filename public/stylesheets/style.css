@@ -45,6 +45,36 @@ h1 {
     margin-bottom: 2em;
 }
 
+#svg {
+    display: inline-block;
+    border: solid 3px #000;
+    padding: 10px;
+    background-color: #337ab7;
+    border-radius: 5px;
+}
+.svg-wrapper {
+    position: relative;
+    border-color: #008;
+    display: inline-block;
+    width: 109px;
+    height: 109px;
+}
+.svg-wrapper svg {
+    border-color: #008;
+    position: absolute;
+}
+.svg-wrapper g {
+    fill: none;
+    stroke-width: 3;
+    stroke-linejoin: round;
+}
+.svg_animation g {
+    stroke: #fff;
+}
+.svg_animation_bg g {
+    /*stroke: #589fdc;*/
+    stroke: #66adea;
+}
 
 
 /* Large desktop */

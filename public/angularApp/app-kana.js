@@ -100,7 +100,7 @@ app.factory('kanaUtils', function() {
         var output = [];
         for (var i = 0, l = input.length; i < l; i++)
             //output += '\\u' + pad_four(input.charCodeAt(i).toString(16));
-            output.push( parseInt( (input.charCodeAt(i) + 0x10000).toString(16).slice(1) ) );
+            output.push( (input.charCodeAt(i) + 0x10000).toString(16).slice(1) );
         return output;
     };
 
@@ -218,20 +218,83 @@ app.controller('KanasCtrl', ['$scope', '$stateParams', 'kanaUtils', '$window',
     }
 
     $scope.kana = $sP.kana;
-    $scope.kanaUnicode = utils.stringAsUnicode($scope.kana);    
-    
-    var s = Snap("#svg_kana");
+    $scope.kanaUnicode = utils.stringAsUnicode($scope.kana);
 
-    Snap.load("/angularApp/libs/kanji/05927.svg", function (f) {
+    if ($scope.kanaUnicode.length < 2)
+        $("#svg-kana2-wrapper").css("display", "none");
 
-        var g = f.select("g[id='kvg:StrokePaths_05927']");
-        s.append(g);
+    var svgKana = Snap("#svg-kana");
+    var svgKanaBg = Snap("#svg-kana-bg");
+    $scope.svgKana = svgKana;
+    $scope.svgKanaBg = svgKanaBg;
+    $scope.kanaAnim = null;
+    $scope.kanaAnim2 = null;
+    $scope.animDuration = 300;
+    Snap.load("/angularApp/libs/kanji/0"+$scope.kanaUnicode[0]+".svg", function (f) {
 
-        var kanaAnim = new Vivus('svg_kana', {type:'oneByOne', duration: 350, forceRender: true}, function(){
-            // animation finie
+        var g = f.select("g[id^='kvg:0']");
+        svgKana.append(g);
+
+        var bbox = g.getBBox();
+
+        g.attr({
+            transform: "translate("+(-1*bbox.x + 3)+", 0)",
         });
-        console.log(kanaAnim);
+        svgKana.attr({
+            width: bbox.width + 10,
+        });
+        $("#svg-kana-wrapper").css({width:bbox.width + 10});
+
+        var paths = g.selectAll("path");
+
+        var g_bg = g.clone();
+        svgKanaBg.append(g_bg);
+
+        $scope.kanaAnim = new Vivus('svg-kana', {type:'oneByOne', duration: $scope.animDuration, dashGap:0}, function(anim){
+            // animation finie
+            $(anim.el).css("stroke-linecap", "round");
+            $("#svg-kana-bg").css("display", "none");
+            if ($scope.kanaAnim2)
+                $scope.kanaAnim2.play();
+        });
     });
+
+    if ($scope.kanaUnicode.length >= 2) {
+
+        var svgKana2 = Snap("#svg-kana2");
+        var svgKana2Bg = Snap("#svg-kana2-bg");
+        $scope.svgKana2 = svgKana2;
+        $scope.svgKana2Bg = svgKana2Bg;
+        Snap.load("/angularApp/libs/kanji/0"+$scope.kanaUnicode[1]+".svg", function (f) {
+
+            var g = f.select("g[id^='kvg:0']");
+            svgKana2.append(g);
+
+            var bbox = g.getBBox();
+
+            g.attr({
+                transform: "translate("+(-1*bbox.x + 3)+", 0)",
+            });
+            svgKana2.attr({
+                width: bbox.width + 10,
+            });
+            $("#svg-kana2-wrapper").css({width:bbox.width + 10});
+
+            var paths = g.selectAll("path");
+
+            var g_bg = g.clone();
+            svgKana2Bg.append(g_bg);
+
+            $scope.kanaAnim2 = new Vivus('svg-kana2', {type:'oneByOne', duration: $scope.animDuration, start: "manual", dashGap:0}, function(anim){
+                // animation finie
+                $(anim.el).css("stroke-linecap", "round");
+                $("#svg-kana2-bg").css("display", "none");
+            });
+
+        });
+
+    }
+
 
 }]);
 
