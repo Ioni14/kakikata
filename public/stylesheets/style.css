@@ -45,37 +45,69 @@ h1 {
     margin-bottom: 2em;
 }
 
-#svg {
+#grille_traits {
+    stroke-linecap: round;
+}
+#svg, .grille_trait_wrapper {
     display: inline-block;
     border: solid 3px #000;
     padding: 10px;
     background-color: #337ab7;
     border-radius: 5px;
 }
-.svg-wrapper {
+.grille_trait_wrapper {
+    margin-bottom: 10px;
+}
+.svg-wrapper, #grille_traits .grille_trait {
     position: relative;
-    border-color: #008;
+    /*border-color: #008;*/
     display: inline-block;
     width: 109px;
     height: 109px;
+}
+#grille_traits .grille_trait {
+    display: inline-block;
 }
 .svg-wrapper svg {
     border-color: #008;
     position: absolute;
 }
-.svg-wrapper g {
+.svg-wrapper g, g.trait_path, g.trait_path_bg {
     fill: none;
     stroke-width: 3;
     stroke-linejoin: round;
 }
+g.trait_text {
+    font-size: 3rem;
+    fill: #000;
+    stroke: none;
+    stroke-width: 0;
+}
 .svg_animation g {
     stroke: #fff;
 }
-.svg_animation_bg g {
+.svg_animation_bg g, .trait_bg {
     /*stroke: #589fdc;*/
     stroke: #66adea;
 }
 
+#infos ul {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    text-align: left;
+    margin-top: 15px;
+    font-size: 3rem;
+}
+#infos li {
+    margin-bottom: 15px;
+}
+.kana_data {
+    background-color: #337ab7;
+    color: #fff;
+    border-radius: 4px;
+    padding: 1rem;
+}
 
 /* Large desktop */
 @media (min-width: 1200px) {
@@ -234,6 +266,13 @@ h1 {
     .symbols-digraphs .symbol-japan {
         font-size: 2.9rem;
     }
+
+    #main_kana {
+        padding: 2px inherit;
+    }
+    #main_kana h1 {
+        font-size: 8rem;
+    }
 }
 
 /* Portrait phones */
@@ -244,6 +283,9 @@ h1 {
     }
     .main {
         min-width: 275px;
+    }
+    .main h1 {
+        font-size: 4rem;
     }
     .hidden-desktop {
         display: block;
@@ -267,6 +309,19 @@ h1 {
     }
     .symbols-digraphs .symbol-japan {
         font-size: 2.8rem;
+    }
+
+    .body {
+        text-align: center;
+    }
+    #main_kana {
+        padding: 2px inherit;
+    }
+    #main_kana h1 {
+        font-size: 8rem;
+    }
+    #svg {
+        text-align: left;
     }
 }
 

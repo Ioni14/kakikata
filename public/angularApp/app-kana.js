@@ -73,19 +73,19 @@ app.factory('kanaUtils', function() {
         return t;
     };
 
-    service.isExists = function(kana) {
+    service.getKana = function(kana) {
 
         for(var i=0; i < KANAS.length; i++) {
             for(var j=0; j < KANAS[i].length; j++) {
                 for(var k=0; k < KANAS[i][j].length; k++) {
                     if (KANAS[i][j][k].jp == kana) {
-                        return true;
+                        return KANAS[i][j][k];
                     }
                 }
             }
         }
 
-        return false;
+        return null;
     };
 
     service.stringAsUnicode = function(input) {
@@ -213,12 +213,13 @@ app.controller('KanasCtrl', ['$scope', '$stateParams', 'kanaUtils', '$window',
     function($scope, $sP, utils, $window) {
 
 
-    if (!utils.isExists($sP.kana)) {
+    $scope.kana = utils.getKana($sP.kana);
+
+    if ($scope.kana == null) {
         $window.history.back();
     }
 
-    $scope.kana = $sP.kana;
-    $scope.kanaUnicode = utils.stringAsUnicode($scope.kana);
+    $scope.kanaUnicode = utils.stringAsUnicode($scope.kana.jp);
 
     if ($scope.kanaUnicode.length < 2)
         $("#svg-kana2-wrapper").css("display", "none");
@@ -230,9 +231,61 @@ app.controller('KanasCtrl', ['$scope', '$stateParams', 'kanaUtils', '$window',
     $scope.kanaAnim = null;
     $scope.kanaAnim2 = null;
     $scope.animDuration = 300;
+    $scope.snapFiles = [];
+    var creationGrilleTraits = false;
+
+    var creerGrilleTraits = function() {
+
+        var paths = $scope.snapFiles[0].paths;
+        var texts = $scope.snapFiles[0].texts;
+
+        // génération de la grille d'écriture
+        for (var i = 0; i < paths.length; i++) {
+            var path = paths[i].clone();
+            var text = texts[i].clone();
+
+            if ( $("#grille_traits #trait_"+i).length <= 0 ) {
+                $("#grille_traits").append("<div id='trait_"+i+"' class='grille_trait_wrapper' >"+
+                    "<div class='grille_trait trait_kana1'><svg class='svg_animation' height='109' version='1.1' width='109' xmlns='http://www.w3.org/2000/svg'><g class='trait_path_bg'></g><g class='trait_path'></g><g class='trait_text'></g></svg></div>" +
+                    "<div class='grille_trait trait_kana2'><svg class='svg_animation' height='109' version='1.1' width='109' xmlns='http://www.w3.org/2000/svg'><g></g></svg></div>"+
+                    "</div>");
+            }
+            var traitKana = Snap("#grille_traits #trait_"+i+" .trait_kana1");
+            var traitKana_gTrait_path = traitKana.select("g.trait_path");
+            var traitKana_gTrait_text = traitKana.select("g.trait_text");
+            traitKana_gTrait_path.append(path);
+            traitKana_gTrait_text.append(text);
+
+            // on affiche les traits déjà dessinés
+            for (var j = 0; j < i; j++) {
+                var path_bg = paths[j].clone();
+                path_bg.attr({
+                    class: "trait_bg"
+                });
+                traitKana.select("g.trait_path_bg").append(path_bg);
+            }
+
+/*
+            var bbox_path = path.getBBox();
+            path.attr({
+                transform: "translate("+(-1*bbox.x + 3)+", 0)",
+            });
+            traitKana.attr({
+                width: bbox.width + 10,
+            });
+*/
+        }
+    }
+
     Snap.load("/angularApp/libs/kanji/0"+$scope.kanaUnicode[0]+".svg", function (f) {
 
         var g = f.select("g[id^='kvg:0']");
+
+        $scope.snapFiles[0] = {
+            paths:g.clone().selectAll("path"), 
+            texts:f.selectAll("g[id^='kvg:StrokeNumbers'] text")
+        };
+
         svgKana.append(g);
 
         var bbox = g.getBBox();
@@ -245,10 +298,14 @@ app.controller('KanasCtrl', ['$scope', '$stateParams', 'kanaUtils', '$window',
         });
         $("#svg-kana-wrapper").css({width:bbox.width + 10});
 
-        var paths = g.selectAll("path");
-
         var g_bg = g.clone();
         svgKanaBg.append(g_bg);
+
+        // si tous mes svg ont été chargés
+        if ($scope.snapFiles.length == $scope.kanaUnicode.length && !creationGrilleTraits) {
+            creationGrilleTraits = true;
+            creerGrilleTraits();
+        }
 
         $scope.kanaAnim = new Vivus('svg-kana', {type:'oneByOne', duration: $scope.animDuration, dashGap:0}, function(anim){
             // animation finie
@@ -257,6 +314,7 @@ app.controller('KanasCtrl', ['$scope', '$stateParams', 'kanaUtils', '$window',
             if ($scope.kanaAnim2)
                 $scope.kanaAnim2.play();
         });
+
     });
 
     if ($scope.kanaUnicode.length >= 2) {
@@ -266,6 +324,8 @@ app.controller('KanasCtrl', ['$scope', '$stateParams', 'kanaUtils', '$window',
         $scope.svgKana2 = svgKana2;
         $scope.svgKana2Bg = svgKana2Bg;
         Snap.load("/angularApp/libs/kanji/0"+$scope.kanaUnicode[1]+".svg", function (f) {
+
+            $scope.snapFiles[1] = f;
 
             var g = f.select("g[id^='kvg:0']");
             svgKana2.append(g);
@@ -280,10 +340,14 @@ app.controller('KanasCtrl', ['$scope', '$stateParams', 'kanaUtils', '$window',
             });
             $("#svg-kana2-wrapper").css({width:bbox.width + 10});
 
-            var paths = g.selectAll("path");
-
             var g_bg = g.clone();
             svgKana2Bg.append(g_bg);
+
+            // si tous mes svg ont été chargés
+            if ($scope.snapFiles.length == $scope.kanaUnicode.length && !creationGrilleTraits) {
+                creationGrilleTraits = true;
+                creerGrilleTraits();
+            }
 
             $scope.kanaAnim2 = new Vivus('svg-kana2', {type:'oneByOne', duration: $scope.animDuration, start: "manual", dashGap:0}, function(anim){
                 // animation finie

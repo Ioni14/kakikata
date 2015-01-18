@@ -1,19 +1,41 @@
 
 <div class="container">
-    <div class="main">
-        <h1>{{kana}}</h1>
+    <div class="main" id="main_kana">
+        <h1>{{kana.jp}}</h1>
     </div>
 
 <!-- Bouton Retour ? -->
-
-    <div id="svg">
-        <div id="svg-kana-wrapper" class="svg-wrapper">
-            <svg id="svg-kana-bg" class="svg_animation_bg" height="109" version="1.1" width="109" xmlns="http://www.w3.org/2000/svg"></svg>
-            <svg id="svg-kana" class="svg_animation" height="109" version="1.1" width="109" xmlns="http://www.w3.org/2000/svg"></svg>
-        </div><!--
-        --><div id="svg-kana2-wrapper" class="svg-wrapper">
-            <svg id="svg-kana2-bg" class="svg_animation_bg" height="109" version="1.1" width="109" xmlns="http://www.w3.org/2000/svg"></svg>
-            <svg id="svg-kana2" class="svg_animation" height="109" version="1.1" width="100" xmlns="http://www.w3.org/2000/svg"></svg>
+    <div class="body">
+        <div id="svg">
+            <div id="svg-kana-wrapper" class="svg-wrapper">
+                <svg id="svg-kana-bg" class="svg_animation_bg" height="109" version="1.1" width="109" xmlns="http://www.w3.org/2000/svg"></svg>
+                <svg id="svg-kana" class="svg_animation" height="109" version="1.1" width="109" xmlns="http://www.w3.org/2000/svg"></svg>
+            </div><!--
+            --><div id="svg-kana2-wrapper" class="svg-wrapper">
+                <svg id="svg-kana2-bg" class="svg_animation_bg" height="109" version="1.1" width="109" xmlns="http://www.w3.org/2000/svg"></svg>
+                <svg id="svg-kana2" class="svg_animation" height="109" version="1.1" width="100" xmlns="http://www.w3.org/2000/svg"></svg>
+            </div>
         </div>
+
+
+        <div id="infos">
+            <audio src="{{kana.audio}}"></audio>
+            <ul>
+                <li>Phonétique : <span class="kana_data">[{{kana.phonetic}}]</span></li>
+                <li>Roma-ji : <span class="kana_data">{{kana.roma | uppercase}}</span></li>
+                <li>Prononciation : <span class="kana_data" >Play</span></li>
+            </ul>
+        </div>
+
+        <div id="grille_traits">
+
+
+        
+        </div>
+
+        <div id="zone_ecriture">
+        </div>
+
+
     </div>
 </div>
