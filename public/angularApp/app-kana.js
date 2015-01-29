@@ -271,6 +271,15 @@ app.controller('KanasCtrl', ['$scope', '$stateParams', 'kanaUtils', '$window',
                 traitKana.select("g.trait_path_bg").append(path_bg);
             }
 
+            // on ajuste le SVG
+            var g_trait_group = traitKana.select("g.trait_group");
+            var bbox = g_trait_group.getBBox();
+
+            g_trait_group.attr({
+                transform: "translate(0, 10)", // pour le coller à gauche + pour une marge en haut
+            });
+
+
         }
 
         nbPathsPreced += paths.length;
@@ -287,7 +296,17 @@ app.controller('KanasCtrl', ['$scope', '$stateParams', 'kanaUtils', '$window',
                 traitKana.select("g.trait_path_bg").append(path_bg);
             }
 
+
+            // on ajuste le SVG
+            var g_trait_group = traitKana.select("g.trait_group");
+            var bbox = g_trait_group.getBBox();
+
+            g_trait_group.attr({
+                transform: "translate(0, 10)", // pour le coller à gauche + pour une marge en haut
+            });
+
         }
+
 
 
         return nbPathsPreced;
@@ -306,11 +325,11 @@ app.controller('KanasCtrl', ['$scope', '$stateParams', 'kanaUtils', '$window',
 
         // création du DOM
         for (var i = 0; i < nbPathsTotal; i++) {
-            var dom = "<div id='trait_"+i+"' class='grille_trait_wrapper' >";
+            var dom = "<div class='grille_trait_wrapper_parent col-xs-12 col-sm-6 col-md-4 col-lg-3'><div id='trait_"+i+"' class='grille_trait_wrapper'>";
             for (var j = 0; j < $scope.snapFiles.length; j++) {
-                dom += "<div class='grille_trait trait_kana"+(j+1)+"'><svg class='svg_animation' height='109' version='1.1' width='109' xmlns='http://www.w3.org/2000/svg'><g class='trait_path_bg'></g><g class='trait_path'></g><g class='trait_text'></g></svg></div>";
+                dom += "<div class='grille_trait trait_kana"+(j+1)+"'><svg class='svg_animation' height='120' version='1.1' width='109' xmlns='http://www.w3.org/2000/svg'><g class='trait_group'><g class='trait_path_bg'></g><g class='trait_path'></g><g class='trait_text'></g></g></svg></div>";
             }
-            dom += "</div><div class='grille_trait_sep'></div>"; // div vide pour que les blocks se placent en dessous
+            dom += "</div></div>"; // div vide pour que les blocks se placent en dessous
             $("#grille_traits").append(dom);
         }
 

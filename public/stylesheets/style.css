@@ -2,7 +2,9 @@
     font-family: "ipaexg";
     src: url('ipaexg.ttf');
 }
-
+html {
+    font-size: 100%;
+}
 body {
     padding-top: 50px;
 }
@@ -19,7 +21,7 @@ nav li {
 }
 
 h1 {
-    font-size: 3rem;
+    /*font-size: 3rem;*/
 }
 
 .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
@@ -57,7 +59,12 @@ h1 {
 }
 .grille_trait_wrapper {
     margin-bottom: 10px;
+    /*min-width: 244px;*/
 }
+.grille_trait_wrapper_parent {
+    text-align: center;
+}
+/*
 .grille_trait_sep {
     visibility: hidden;
     display: block;
@@ -67,7 +74,8 @@ h1 {
     margin: 0;
     padding: 0;
 }
-.svg-wrapper, #grille_traits .grille_trait {
+*/
+.svg-wrapper {
     position: relative;
     /*border-color: #008;*/
     display: inline-block;
@@ -75,6 +83,7 @@ h1 {
     height: 109px;
 }
 #grille_traits .grille_trait {
+    position: relative;
     display: inline-block;
 }
 .svg-wrapper svg {
@@ -87,7 +96,7 @@ h1 {
     stroke-linejoin: round;
 }
 g.trait_text {
-    font-size: 3rem;
+    /*font-size: 3rem;*/
     fill: #000;
     stroke: none;
     stroke-width: 0;
@@ -106,7 +115,7 @@ g.trait_text {
     list-style-type: none;
     text-align: left;
     margin-top: 15px;
-    font-size: 3rem;
+    /*font-size: 3rem;*/
 }
 #infos li {
     margin-bottom: 15px;
@@ -115,7 +124,7 @@ g.trait_text {
     background-color: #337ab7;
     color: #fff;
     border-radius: 4px;
-    padding: 1rem;
+    padding: 5px 10px;
 }
 
 /* Large desktop */
@@ -149,6 +158,11 @@ g.trait_text {
         font-size: 2rem;
     }
 
+
+    #svg {
+        float: right;
+    }
+
 }
 
 @media (min-width: 980px) and (max-width: 1199px) {
@@ -178,6 +192,11 @@ g.trait_text {
     }
     .symbols-digraphs .symbol-japan {
         font-size: 1.9rem;
+    }
+
+
+    #svg {
+        float: right;
     }
 }
 
@@ -210,13 +229,17 @@ g.trait_text {
     .symbols-digraphs .symbol-japan {
         font-size: 3rem;
     }
+
+    #svg {
+        float: right;
+    }
 }
  
 /* Landscape phone to portrait tablet */
 @media (min-width: 481px) and (max-width: 767px) {
 
     html {
-        font-size: 10px;
+        /*font-size: 10px;*/
     }
     .hidden-desktop {
         display: block;
@@ -230,71 +253,46 @@ g.trait_text {
         line-height: 3rem;
     }
     .symbol-japan {
-        font-size: 3.5rem;
+        /*font-size: 3.5rem;*/
     }
     .symbol-romaji {
-        font-size: 2rem;
+        /*font-size: 2rem;*/
     }
     .symbols-digraphs .symbol {
         width: 8rem;
     }
     .symbols-digraphs .symbol-japan {
-        font-size: 2.9rem;
-    }
-}
-
-/* Landscape phones and down */
-@media (min-width: 321px) and (max-width: 480px) { 
-
-    html {
-        font-size: 8px;
-    }
-    .main {
-        min-width: 435px;
-    }
-    .hidden-desktop {
-        display: block;
-    }
-    .visible-desktop {
-        display: none;
+        /*font-size: 2.9rem;*/
     }
 
-    .symbol {
-        width: 8rem;
-        line-height: 3rem;
-    }
-    .symbol-japan {
-        font-size: 3.5rem;
-    }
-    .symbol-romaji {
-        font-size: 2rem;
-    }
-    .symbols-digraphs .symbol {
-        width: 9.3rem;
-    }
-    .symbols-digraphs .symbol-japan {
-        font-size: 2.9rem;
-    }
 
+    .body {
+        text-align: center;
+    }
     #main_kana {
         padding: 2px inherit;
     }
     #main_kana h1 {
-        font-size: 8rem;
+        /*font-size: 7rem;*/
+    }
+    #svg {
+        text-align: left;
+    }
+    #infos {
+        /*float: right;*/
+    }
+
+
+    g.trait_text {
+        /*font-size: 2.5rem;*/
     }
 }
 
-/* Portrait phones */
-@media (max-width: 320px) {
+/* Landscape phones and down */
+@media (max-width: 480px) { 
 
     html {
-        font-size: 6px;
-    }
-    .main {
-        min-width: 275px;
-    }
-    .main h1 {
-        font-size: 4rem;
+        /*font-size: 8px;*/
     }
     .hidden-desktop {
         display: block;
@@ -304,20 +302,20 @@ g.trait_text {
     }
 
     .symbol {
-        width: 7.5rem;
-        line-height: 3rem;
+        width: 44px;
+        /*line-height: 3rem;*/
     }
     .symbol-japan {
-        font-size: 3.5rem;
+        font-size: 18px;
     }
     .symbol-romaji {
-        font-size: 2.2rem;
+        /*font-size: 2rem;*/
     }
     .symbols-digraphs .symbol {
-        width: 9.8rem;
+        width: 65px;
     }
     .symbols-digraphs .symbol-japan {
-        font-size: 2.8rem;
+        /*font-size: 2.9rem;*/
     }
 
     .body {
@@ -327,11 +325,15 @@ g.trait_text {
         padding: 2px inherit;
     }
     #main_kana h1 {
-        font-size: 8rem;
+        /*font-size: 7rem;*/
     }
     #svg {
         text-align: left;
     }
+
+
+    g.trait_text {
+        /*font-size: 2.5rem;*/
+    }
+
 }
-
-
