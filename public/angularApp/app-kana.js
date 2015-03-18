@@ -216,17 +216,133 @@ app.controller('TabKatakanaCtrl', ['$scope', 'katakanas', function($scope, kanas
     
 }]);
 
-app.controller('KanasCtrl', ['$scope', '$stateParams', 'kanaUtils', '$window', 
-    function($scope, $sP, utils, $window) {
+app.controller('KanasCtrl', ['$scope', '$http','$stateParams', 'kanaUtils', '$window', 
+    function($scope, $http, $sP, utils, $window) {
 
+    $scope.canvasValid = false;
+
+    var data = {
+        //"app_version":0.4,
+        //"api_level":"33.0",
+        //"device":"5.0 (Windows)",
+        "input_type":0,
+        "options":"enable_pre_space",
+        "requests":[{
+            "writing_guide":{
+                "writing_area_width":400,
+                "writing_area_height":300
+            },
+            "pre_context":"",
+            "max_num_results":5,
+            "max_completions":0,
+            "ink": [],
+        }]
+        
+    };
+
+    var painting = false;
+    var started = false;
+    var beginTime = -1;
+    var cursorX = 0, cursorY = 0;
+    var ink = [];
+    var lineActual = [[],[],[]];
+
+    var $canvas = $("#canvas");
+    var ctx = $canvas[0].getContext('2d');
+    ctx.strokeStyle = "#4d90fe";
+    ctx.lineWidth = "5";
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
+
+    $scope.effacer = function() {
+        beginTime = -1;
+        ink = [];
+        lineActual = [[],[],[]];
+        ctx.clearRect(0, 0, $canvas.width(), $canvas.height());
+        $scope.canvasValid = false;
+    };
+
+    var draw = function() {
+        if (!painting)
+            return;
+
+        if (!started) {
+            // Je place mon curseur pour la première fois :
+            if (beginTime == -1) {
+                beginTime = (new Date()).getTime();
+            }
+
+            ctx.beginPath();
+            ctx.moveTo(cursorX, cursorY);
+
+            started = true;
+        }
+
+        var time = (new Date()).getTime() - beginTime;
+        lineActual[0].push(cursorX);
+        lineActual[1].push(cursorY);
+        lineActual[2].push(time);
+
+        ctx.lineTo(cursorX, cursorY);
+        ctx.stroke();
+
+    };
+    $scope.onMouseDown = function(e) {
+        painting = true;
+
+        cursorX = (e.pageX - e.target.offsetLeft);
+        cursorY = (e.pageY - e.target.offsetTop);
+
+        draw();
+    };
+    $scope.onMouseMove = function(e) {
+        cursorX = (e.pageX - e.target.offsetLeft);
+        cursorY = (e.pageY - e.target.offsetTop);
+        
+        draw();
+    };
+    $scope.onMouseUp = function(e) {
+        painting = false;
+        started = false;
+
+        if (lineActual[0].length == 0)
+            return;
+
+        ink.push(lineActual);
+        lineActual = [[],[],[]]; // x y t
+
+        data.requests[0].ink = ink;
+
+        $http.post('https://inputtools.google.com/request?itc=ja-t-i0-handwrit', JSON.stringify(data)).
+          success(function(data, status, headers, config) {
+            
+            var chars = data[1][0][1];
+
+            $scope.canvasValid = false;
+            angular.forEach(chars, function(value, key) {
+                if (key >= 5)
+                    return;
+                if (value == $scope.kana.jp) {
+                    $scope.canvasValid = true;
+                    return;
+                }
+            });
+
+          }).
+          error(function(data, status, headers, config) {
+          });
+
+    };
 
     $scope.kana = utils.getKana($sP.kana);
 
+    // Vérification si c'est bien un kana
     if ($scope.kana == null) {
         $window.history.back();
     }
 
     $scope.kanaUnicode = utils.stringAsUnicode($scope.kana.jp);
+    //$scope.kanaUnicode = utils.stringAsUnicode($sP.kana);
 
     if ($scope.kanaUnicode.length < 2)
         $("#svg-kana2-wrapper").css("display", "none");

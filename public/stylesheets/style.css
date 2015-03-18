@@ -49,11 +49,12 @@ h1 {
 }
 
 #grille_traits {
+    margin-top: 20px;
     stroke-linecap: round;
 }
 #svg, .grille_trait_wrapper {
     display: inline-block;
-    border: solid 3px #000;
+    border: solid 2.5px #1d64a1;
     padding: 10px;
     background-color: #337ab7;
     border-radius: 5px;
@@ -97,7 +98,7 @@ h1 {
     stroke-linejoin: round;
 }
 g.trait_text {
-    /*font-size: 3rem;*/
+    font-size: 1.3em;
     fill: #000;
     stroke: none;
     stroke-width: 0;
@@ -148,6 +149,52 @@ g.trait_text {
     padding: 5px 5px;
 }
 
+#zone_ecriture {
+    margin-top: 20px;
+    text-align: center;
+}
+#canvas {
+    cursor: url("../images/pencil.png") 0 10, auto;
+    border: 2.5px solid #1d64a1;
+    border-radius: 5px;
+}
+#canvas.valid {
+-moz-box-shadow: 0px 0px 15px 3px #009901;
+-webkit-box-shadow: 0px 0px 15px 3px #009901;
+-o-box-shadow: 0px 0px 15px 3px #009901;
+box-shadow: 0px 0px 15px 3px #009901;
+filter:progid:DXImageTransform.Microsoft.Shadow(color=#009901, Direction=NaN, Strength=15);
+}
+#canvas.invalid {
+-moz-box-shadow: 0px 0px 15px 3px #cb0000;
+-webkit-box-shadow: 0px 0px 15px 3px #cb0000;
+-o-box-shadow: 0px 0px 15px 3px #cb0000;
+box-shadow: 0px 0px 15px 3px #cb0000;
+filter:progid:DXImageTransform.Microsoft.Shadow(color=#cb0000, Direction=NaN, Strength=15);
+}
+#effacerBouton {
+    display: block;
+    width: 400px;
+    margin:auto;
+    margin-top: 10px;
+}
+
+.clearer:after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    width: 0;
+    line-height: 0;
+    margin: 0;
+    padding: 0;
+    visibility: hidden;
+}
+
+.infosLabels {
+    display: inline-block;
+    width: 150px;
+}
 
 /* Large desktop */
 @media (min-width: 1200px) {

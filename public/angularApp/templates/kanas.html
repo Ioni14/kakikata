@@ -1,10 +1,9 @@
 
-<div class="container">
+<div class="container" ng-mouseup="onMouseUp($event)">
     <div class="main" id="main_kana">
         <h1>{{kana.jp}}</h1>
     </div>
 
-<!-- Bouton Retour ? -->
     <div class="body">
 
         <div class="row">
@@ -22,23 +21,20 @@
             </div>
 
             <div class="col-xs-12 col-sm-6" id="infos">
-                <audio src="{{kana.audio}}"></audio>
                 <ul>
-                    <li>Nombre de traits : <span class="kana_data">{{kana.nbTraits}}</span></li>
-                    <li>Roma-ji : <span class="kana_data">{{kana.roma}}</span></li>
-                    <li>Phonétique : <span class="kana_data">[{{kana.phonetic}}]</span></li>
-                    <li>Prononciation : <span class="kana_data" >Play</span></li>
+                    <li><label class="infosLabels">Nombre de traits : </label><span class="kana_data">{{kana.nbTraits}}</span></li>
+                    <li><label class="infosLabels">Roma-ji : </label><span class="kana_data">{{kana.roma}}</span></li>
+                    <li><label class="infosLabels">Phonétique : </label><span class="kana_data">[{{kana.phonetic}}]</span></li>
                 </ul>
             </div>
         </div>
-        <div id="grille_traits">
+        <div id="grille_traits" class="clearer"></div>
 
-
-        
-        </div>
-
-        <div id="zone_ecriture">
-        </div>
+        <div id="zone_ecriture"><canvas id="canvas" height="300" width="400"
+         ng-mousemove="onMouseMove($event)" 
+         ng-mousedown="onMouseDown($event)"
+         ng-class="{valid: canvasValid, invalid: !canvasValid}"
+         ></canvas><button ng-click="effacer()" id="effacerBouton" class="btn btn-primary">Effacer</button></div>
 
 
     </div>
