@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="fr">
+    <head>
+        <% include ../partials/head %>
+    </head>
+    <body ng-app="kakikata_quiz">
+
+        <% include ../partials/menu %>
+        
+        <ui-view></ui-view>
+
+        <% include ../partials/bootstrap %>
+        <% include ../partials/angular %>
+        <script src="/angularApp/libs/kanas.js"></script>
+        <script src="/angularApp/libs/snap.svg-min.js"></script>
+        <script src="/angularApp/libs/vivus.min.js"></script>
+        <script src="/angularApp/app-quiz.js"></script>
+    </body>
+</html>

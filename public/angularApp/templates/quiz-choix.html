@@ -1,0 +1,97 @@
+
+<div class="container">
+    <div class="main">
+        <h1>Quiz</h1>
+        <p class="lead">Choisissez les kanas que vous souhaitez réviser.</p>
+
+
+        <h2 class='kana-title'><span class='icon-check'></span>Hiraganas</h2>
+
+
+
+
+
+        <div class="visible-desktop">
+
+            <div class="symbols-pack">
+                <div class="symbols-line row" ng-repeat="kanaline in getHiraganasByColumns()">
+                    <a class="symbol btn btn-primary col-sm-1 {{getClassIfHidden(kana)}}" ng-repeat="kana in kanaline" ng-href="/kanas#/{{kana.jp}}">
+                        <div class="symbol-japan">{{kana.jp}}</div>
+                        <div class="symbol-romaji">{{kana.roma}}</div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="symbols-pack">
+                <div class="symbols-line row" ng-repeat="kanaline in getHiraganasDiacriticsByColumns()">
+                    <a class="symbol btn btn-primary col-sm-1 {{getClassIfHidden(kana)}}" ng-repeat="kana in kanaline" ng-href="/kanas#/{{kana.jp}}">
+                        <div class="symbol-japan">{{kana.jp}}</div>
+                        <div class="symbol-romaji">{{kana.roma}}</div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="symbols-pack">
+                <div class="symbols-line symbols-digraphs row" ng-repeat="kanaline in getHiraganasDigraphsByColumns()">
+                    <a class="symbol btn btn-primary col-sm-1 {{getClassIfHidden(kana)}}" ng-repeat="kana in kanaline" ng-href="/kanas#/{{kana.jp}}">
+                        <div class="symbol-japan">{{kana.jp}}</div>
+                        <div class="symbol-romaji">{{kana.roma}}</div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="symbols-pack">
+                <div class="symbols-line symbols-digraphs row" ng-repeat="kanaline in getHiraganasDigraphsDiacriticsByColumns()">
+                    <a class="symbol btn btn-primary col-sm-1 {{getClassIfHidden(kana)}}" ng-repeat="kana in kanaline" ng-href="/kanas#/{{kana.jp}}">
+                        <div class="symbol-japan">{{kana.jp}}</div>
+                        <div class="symbol-romaji">{{kana.roma}}</div>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+        <div class="hidden-desktop">
+
+        	<div class="symbols-pack">
+                <div class="symbols-line row" ng-repeat="kanaline in getHiraganasByLines()">
+                    <a class="symbol btn btn-primary col-xs-2 {{getClassIfHidden(kana)}}" ng-repeat="kana in kanaline" ng-href="/kanas#/{{kana.jp}}">
+                        <div class="symbol-japan">{{kana.jp}}</div>
+                        <div class="symbol-romaji">{{kana.roma}}</div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="symbols-pack">
+                <div class="symbols-line row" ng-repeat="kanaline in getHiraganasDiacriticsByLines()">
+                    <a class="symbol btn btn-primary col-xs-2 {{getClassIfHidden(kana)}}" ng-repeat="kana in kanaline" ng-href="/kanas#/{{kana.jp}}">
+                        <div class="symbol-japan">{{kana.jp}}</div>
+                        <div class="symbol-romaji">{{kana.roma}}</div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="symbols-pack">
+                <div class="symbols-line symbols-digraphs row" ng-repeat="kanaline in getHiraganasDigraphsByLines()">
+                    <a class="symbol btn btn-primary col-xs-2 {{getClassIfHidden(kana)}}" ng-repeat="kana in kanaline" ng-href="/kanas#/{{kana.jp}}">
+                        <div class="symbol-japan">{{kana.jp}}</div>
+                        <div class="symbol-romaji">{{kana.roma}}</div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="symbols-pack">
+                <div class="symbols-line symbols-digraphs row" ng-repeat="kanaline in getHiraganasDigraphsDiacriticsByLines()">
+                    <a class="symbol btn btn-primary col-xs-2 {{getClassIfHidden(kana)}}" ng-repeat="kana in kanaline" ng-href="/kanas#/{{kana.jp}}">
+                        <div class="symbol-japan">{{kana.jp}}</div>
+                        <div class="symbol-romaji">{{kana.roma}}</div>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
