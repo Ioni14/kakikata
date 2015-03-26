@@ -19,7 +19,7 @@
                     </div>
                 </div>
             </div>
-
+            
             <div class="col-xs-12 col-sm-6" id="infos">
                 <ul>
                     <li><label class="infosLabels">Nombre de traits : </label><span class="kana_data">{{kana.nbTraits}}</span></li>
@@ -29,11 +29,11 @@
             </div>
         </div>
         <div id="grille_traits" class="clearer"></div>
-
-        <div id="zone_ecriture"><canvas id="canvas" height="300" width="400"
+        
+        <div id="zone_ecriture"><canvas id="canvas" height="300" width="400" 
          ng-mousemove="onMouseMove($event)" 
-         ng-mousedown="onMouseDown($event)"
-         ng-class="{valid: canvasValid, invalid: !canvasValid}"
+         ng-mousedown="onMouseDown($event)" 
+         ng-class="{valid: canvasValid, invalid: !canvasValid}" 
          ></canvas><button ng-click="effacer()" id="effacerBouton" class="btn btn-primary">Effacer</button></div>
 
 

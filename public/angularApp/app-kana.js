@@ -216,8 +216,8 @@ app.controller('TabKatakanaCtrl', ['$scope', 'katakanas', function($scope, kanas
     
 }]);
 
-app.controller('KanasCtrl', ['$scope', '$http','$stateParams', 'kanaUtils', '$window', 
-    function($scope, $http, $sP, utils, $window) {
+app.controller('KanasCtrl', ['$scope', '$http','$stateParams', 'kanaUtils', '$window', '$q',  
+    function($scope, $http, $sP, utils, $window, $q) {
 
     $scope.canvasValid = false;
 
@@ -322,7 +322,7 @@ app.controller('KanasCtrl', ['$scope', '$http','$stateParams', 'kanaUtils', '$wi
             angular.forEach(chars, function(value, key) {
                 if (key >= 5)
                     return;
-                if (value == $scope.kana.jp) {
+                if (value == $scope.kanaJP) {
                     $scope.canvasValid = true;
                     return;
                 }
@@ -334,15 +334,17 @@ app.controller('KanasCtrl', ['$scope', '$http','$stateParams', 'kanaUtils', '$wi
 
     };
 
-    $scope.kana = utils.getKana($sP.kana);
+    $scope.kanaJP = $sP.kana;
+    $scope.kana = utils.getKana($scope.kanaJP);
 
+/*
     // Vérification si c'est bien un kana
     if ($scope.kana == null) {
         $window.history.back();
     }
+*/
 
-    $scope.kanaUnicode = utils.stringAsUnicode($scope.kana.jp);
-    //$scope.kanaUnicode = utils.stringAsUnicode($sP.kana);
+    $scope.kanaUnicode = utils.stringAsUnicode($scope.kanaJP);
 
     if ($scope.kanaUnicode.length < 2)
         $("#svg-kana2-wrapper").css("display", "none");
@@ -357,6 +359,61 @@ app.controller('KanasCtrl', ['$scope', '$http','$stateParams', 'kanaUtils', '$wi
     $scope.snapFiles = [];
     $scope.snapFilesLoaded = 0; // Le nombre de fichiers SVG chargés
     var creationGrilleTraits = false;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // Promesse pour le chargement des fichiers SVG
+    var loadSVG = function(kanaUnicode) {
+
+        var deferred = $q.defer();
+
+        Snap.load("/angularApp/libs/kanji/0"+kanaUnicode+".svg", function (f) {
+
+            var g = f.select("g[id^='kvg:0']");
+            if (!g) {
+                deferred.reject(null);
+                return;
+            }
+
+            var snapFile = {
+                paths:g.clone().selectAll("path"), 
+                texts:f.selectAll("g[id^='kvg:StrokeNumbers'] text")
+            };
+
+            deferred.resolve(snapFile);
+        });
+
+        return deferred.promise;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     var creerKana = function(id, nbPathsPreced, nbPathsTotal) {
@@ -453,6 +510,26 @@ app.controller('KanasCtrl', ['$scope', '$http','$stateParams', 'kanaUtils', '$wi
             nbPathsPreced = creerKana(i, nbPathsPreced, nbPathsTotal);
         }
 
+    }
+
+
+    loadSVG($scope.kanaUnicode[0]).then(function(snapFile) {
+        // resolve
+        //console.dir(snapFile);
+        console.log("kana #0 loaded");
+    }, function() {
+        // reject
+        console.log("promise rejected");
+    });
+    if ($scope.kanaUnicode[1]) {
+        loadSVG($scope.kanaUnicode[1]).then(function(snapFile) {
+            // resolve
+            //console.dir(snapFile);
+            console.log("kana #1 loaded");
+        }, function() {
+            // reject
+            console.log("promise rejected");
+        });
     }
 
     Snap.load("/angularApp/libs/kanji/0"+$scope.kanaUnicode[0]+".svg", function (f) {
